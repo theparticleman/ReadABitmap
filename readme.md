@@ -64,4 +64,4 @@ The one last fun bit of BMP devilry we'll deal with in this kata is order of the
 
 If you get done with the above tests, some other tests and functionality you could add include
 - Make sure your code works with BMP files that have a different bits per pixel value. If you want to test with an actual file you may need to generate some additional files beyond the sample ones provided. Write tests to make sure this functionality works properly.
-- Add the ability to modified the color of individual pixels have save the modified BMP out to a file. Write tests to make sure you modified file can be read back in by your code and that your changes were made correctly. Also test with an image viewer.
+- Add the ability to modified the color of individual pixels have save the modified BMP out to a file. Write tests to make sure your modified file can be read back in by your code and that your changes were made correctly. Also test with an image viewer.
