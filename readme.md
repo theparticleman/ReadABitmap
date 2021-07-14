@@ -10,7 +10,7 @@ For this kata you will need to be able to read a file. Often when reading a file
 
 The first thing we need to do is make sure we can read a binary file. To help with this, you can use [this](https://github.com/theparticleman/ReadABitmap/blob/master/test_file.bin) file. It contains 6 bytes. The values of those bytes are `0`, `1`, `2`, `3`, `4`, and `5`.
 
-*Test #1*: Write a test to ensure that you can read from this test file and get the correct bytes. Make the test pass.
+*Test #1*: Write a test to ensure that you can read from this test file and get the correct bytes. Make the test passes.
 
 ## Bitmap Header
 
