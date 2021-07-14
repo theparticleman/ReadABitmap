@@ -48,7 +48,7 @@ The bits per pixel value represents how many bits are used to represent each pix
 
 At this point we have enough information to start parsing the actual pixel data. We know where the data begins. We know how many bits each pixel takes up. We'll also need to know the width and height of the image, which we have. We do need to know how the data is packaged though.
 
-The pixel data is grouped into rows. Each row roughly translates into a row in the image. But each row does get padded out to a multiple of 4 bytes. So in our simple images, each row is 10 pixels. Each of those pixels types up 3 bytes. So each row has 30 bytes of pixel data. However, each row will get padded out to a multiple of 4. So in this case each row will be 32 bytes. The first 30 bytes contain the actual values for the 10 pixels in the row and then the last 2 bytes will just be zeroes.
+The pixel data is grouped into rows. Each row roughly translates into a row in the image. But each row does get padded out to a multiple of 4 bytes. So in our simple images, each row is 10 pixels. Each of those pixels takes up 3 bytes. So each row has 30 bytes of pixel data. However, each row will get padded out to a multiple of 4. So in this case each row will be 32 bytes. The first 30 bytes contain the actual values for the 10 pixels in the row and then the last 2 bytes will just be zeroes.
 
 *Test #9*: Write a test to ensure that the pixel data can be parsed correctly. If you use the sample, all white image you could ensure that the first and last pixel are all white, as a place to start. Make the test pass.
 
