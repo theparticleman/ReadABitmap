@@ -50,6 +50,16 @@ At this point we have enough information to start parsing the actual pixel data.
 
 The pixel data is grouped into rows. Each row roughly translates into a row in the image. But each row does get padded out to a multiple of 4 bytes. So in our simple images, each row is 10 pixels. Each of those pixels takes up 3 bytes. So each row has 30 bytes of pixel data. However, each row will get padded out to a multiple of 4. So in this case each row will be 32 bytes. The first 30 bytes contain the actual values for the 10 pixels in the row and then the last 2 bytes will just be zeroes.
 
+How about a few examples?
+
+The first pixel in the pixel data section is stored in bytes `54`, `55`, and `56`. That's simply the offset we read from the header (`54`), then add 0, 1, and 2. for the 3 bytes (24 bits).
+
+The first pixel in the second row in the pixel data section is stored in bytes `86`, `87`, and `88`. To calculate the first index of that pixel you need to know that the row size is 32 bytes (see above for why it's 32 instead of 30). We start at the offset (`54`) and then skip one entire row's worth of bytes (`32`) for `54 + 32 = 86`. We then add 0, 1, and 2 like before.
+
+What about the last pixel in the last row? That pixel is stored in bytes `369`, `370`, and `371`. You may have noticed that each of the 10x10 images are 374 bytes. Why isn't the last index `374` then? Two reasons. First, because the indexes are zero-based. So the last byte in the file is at position `373`. Second, because the rows are padded out to an even multiple of 4 bytes. So the last 2 bytes of the file (`372` and `373`) are simply padding for the last row.
+
+How do we calculate the first index of that last pixel you ask? We take our original offset from the header (`54`), the add the row size (`32`) times the number of rows we're skipping (`9` or `height - 1`), then the number of bytes per pixel (`3` bytes because each pixel is 24 bits) times the number of pixels we're skipping (`9` or `width - 1`) which gives us `54 + (32 * 9) + (3 * 9) = 369`. Tada!
+
 *Test #9*: Write a test to ensure that the pixel data can be parsed correctly. If you use the sample, all white image you could ensure that the first and last pixel are all white, as a place to start. Make the test pass.
 
 ## From A User Perspective
@@ -60,7 +70,7 @@ The one last fun bit of BMP devilry we'll deal with in this kata is order of the
 
 If that's not enough to bake your noodle, in the images we're using with 24 bits per pixel, the RGB values aren't stored in the order you might think: red, green, blue. Rather they are stored blue, green, red. So the three bytes of the one red pixel are `[0, 0, 255]` rather than `[255, 0, 0]`.
 
-*Test #10*: Write a test to ensure that your image data structure works correctly. The width, height and bits per pixel should be correct based on the input. Indexing individual pixels should work correctly. The index `(0, 0)` should return the color data for the pixel in the upper left-hand corner of the image. The index `(width - 1, height - 1)` should return the color data for the pixel in the lower right-hand corner of the image.
+*Test #10*: Write a test to ensure that your image data structure works correctly. The width, height and bits per pixel should be correct based on the input. Indexing individual pixels should work correctly. The index `(0, 0)` should return the color data for the pixel in the upper left-hand corner of the image. The index `(width - 1, height - 1)` should return the color data for the pixel in the lower right-hand corner of the image. For the image with one red pixel, the pixel at `(0, 0)` is the red one.
 
 ## Bonus Points
 
