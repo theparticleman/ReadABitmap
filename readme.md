@@ -58,6 +58,8 @@ Being able to get all of the individual pieces of data from a BMP image file is 
 
 The one last fun bit of BMP devilry we'll deal with in this kata is order of the data in the pixel data. If you were to create a system to address individual pixels using the all white sample image this would be difficult to detect, but if you use the image with one red pixel you would notice that rather than being the first three bytes in the pixel data, the one red pixel is the first three bytes of the _last_ row in the pixel data. Yes, the rows in the pixel data are in the *opposite* order when compared to the actual image.
 
+If that's not enough to bake your noodle, in the images we're using with 24 bits per pixel, the RGB values aren't stored in the order you might think: red, green, blue. Rather they are stored blue, green, red. So the three bytes of the one red pixel are `[0, 0, 255]` rather than `[255, 0, 0]`.
+
 *Test #10*: Write a test to ensure that your image data structure works correctly. The width, height and bits per pixel should be correct based on the input. Indexing individual pixels should work correctly. The index `(0, 0)` should return the color data for the pixel in the upper left-hand corner of the image. The index `(width - 1, height - 1)` should return the color data for the pixel in the lower right-hand corner of the image.
 
 ## Bonus Points
